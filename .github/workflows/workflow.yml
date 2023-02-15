@@ -13,15 +13,20 @@ jobs:
         name: 'Use GitHub Actions'
         uses: actions/checkout@v2
       -
-        name: 'Use Node.js 12.x'
+        name: 'Use Node.js 19.x'
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 19.x
       -
-        name: 'Install Package'
-        run: 'npm install --global stargazed'
+        name: 'Clone stargazed'
+        run: 'git clone https://github.com/hugefiver/stargazed.git stargazed'
+      - 
+        name: 'Install dependencies'
+        working-directory: './stargazed'
+        run: 'corepack prepare yarn@3.4.1 --activate && yarn install'
       -
         name: 'Update Repo'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        run: 'stargazed --username  "hugefiver" --token ${GITHUB_TOKEN} --repo "mystars" --message "stargazed update by GitHub Actions Workflow" --sort'
+        working-directory: './stargazed'
+        run: 'yarn stargazed --username "hugefiver" --token ${GITHUB_TOKEN} --repo "mystars" --message "stargazed update by GitHub Actions Workflow" --sort'
