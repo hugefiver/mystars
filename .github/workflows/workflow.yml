@@ -3,7 +3,7 @@ name: 'Update by stargazed'
 on:
   schedule:
     -
-      cron: '10 6 * * *'
+      cron: '0 18 * * *'
 permissions: write-all
 jobs:
   build:
