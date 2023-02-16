@@ -3,7 +3,8 @@ name: 'Update by stargazed'
 on:
   schedule:
     -
-      cron: '30 0 * * *'
+      cron: '0 20 * * *'
+permissions: write-all
 jobs:
   build:
     name: 'stargazed update'
