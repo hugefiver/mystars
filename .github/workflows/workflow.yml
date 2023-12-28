@@ -14,24 +14,24 @@ jobs:
       -
         name: 'Use GitHub Actions'
         uses: actions/checkout@v3
-      - 
-        name: 'Run Corepack before setup Node.js'
-        run: corepack enable
       -
         name: 'Use Node.js 20.x'
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      - 
+        name: 'Run Corepack before setup Node.js'
+        run: corepack enable
       -
         name: 'Clone stargazed'
         run: 'git clone https://github.com/hugefiver/stargazed.git stargazed'
       - 
         name: 'Install dependencies'
         working-directory: './stargazed'
-        run: 'corepack prepare yarn@3.4.1 --activate && yarn install'
+        run: 'corepack yarn install'
       -
         name: 'Update Repo'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         working-directory: './stargazed'
-        run: 'yarn stargazed --username "hugefiver" --token ${GITHUB_TOKEN} --repo "mystars" --message "stargazed update by GitHub Actions Workflow" --sort'
+        run: 'corepack yarn stargazed --username "hugefiver" --token ${GITHUB_TOKEN} --repo "mystars" --message "stargazed update by GitHub Actions Workflow" --sort'
